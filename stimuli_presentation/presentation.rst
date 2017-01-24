@@ -96,7 +96,7 @@ Trials order
 
 *"two different random orders of the test trials were generated and each was used to test half of the subjects."*
 
-**Assumption 3:** Randomize the order of the words within each trial is randomized as well as the trials order.
+**Assumption 3:** The order of the words within each trial is randomized as well as the trials order.
 
 ----
 
