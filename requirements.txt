@@ -23,6 +23,7 @@ nbconvert==5.0.0
 nbformat==4.2.0
 notebook==4.3.1
 numpy==1.12.0
+pandas==0.19.2
 pandocfilters==1.4.1
 pathtools==0.1.2
 pexpect==4.2.1
@@ -32,6 +33,8 @@ ptyprocess==0.5.1
 pycparser==2.17
 Pygments==2.1.3
 PySoundFile==0.8.1
+python-dateutil==2.6.0
+pytz==2016.10
 PyYAML==3.12
 pyzmq==16.0.2
 qtconsole==4.2.1
