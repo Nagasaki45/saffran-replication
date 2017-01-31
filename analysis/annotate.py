@@ -29,15 +29,16 @@ def get_answer_keys(stimulifile):
     """
     with open(stimulifile) as f:
         stimuli_data = json.load(f)
-    languages = stimuli_data['languages']
     answer_keys = defaultdict(list)
-    for language in [1, 2]:
-        for test, trials in enumerate(stimuli_data['trials'], start=1):
+    for lang_num, language in enumerate(stimuli_data['languages'], start=1):
+        assert language['num'] == lang_num
+        for test_num, trials in enumerate(stimuli_data['trials'], start=1):
             for x, y in trials:
-                if x in languages[language - 1]['words']:
-                    answer_keys[(language, test)].append(1)
+                if x in language['words']:
+                    answer_keys[(lang_num, test_num)].append(1)
                 else:
-                    answer_keys[(language, test)].append(2)
+                    assert y in language['words']
+                    answer_keys[(lang_num, test_num)].append(2)
     return answer_keys
 
 
@@ -50,7 +51,7 @@ def main():
     answer_keys = get_answer_keys(args.stimulifile)
     df = pd.read_csv(args.datafile)
     df['expected'] = df.apply(lambda row: get_expected(row, answer_keys), axis=1)
-    df['correct'] = df.expected == df.answer
+    df['correct'] = (df.expected == df.answer).astype('int')
     if args.outfile:
         df.to_csv(args.outfile, index=False)
     else:
