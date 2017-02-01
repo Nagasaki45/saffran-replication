@@ -4,6 +4,8 @@ generation data.json file and output a .csv file with new column for answer
 correctness (1 if the answer is correct or 0 otherwise).
 """
 
+# Rishi cannot program in Pyton and is struggling with using Git
+
 import argparse
 from collections import defaultdict
 import json
