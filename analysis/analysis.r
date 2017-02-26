@@ -52,7 +52,7 @@ cat("\nIf p < .05, people performed better than chance\n")
 
 # 4. TO DO - Are scores on individual words better than chance, for Language 1?
 
-# 5. TO DO - Are scores on individual words better than chance, for Language 1?
+# 5. TO DO - Are scores on individual words better than chance, for Language 2?
 
 cat("\n6. Are the results similar for Language 1 and Language 2?\n")
 
