@@ -21,21 +21,20 @@ df <- merge(
 print(df)
 
 # 1. Are the results similar for Test 1 and Test 2, for each language?
-# Remi: Sorry, got that wrong when I first read the paper to check the analysis.
 # 1.a. First, test for distributions of Test 1 and Test 2 data in Language 1 for normality.
-shapiro.test(df$correct[df$language == 1 && df$test == 1])
-shapiro.test(df$correct[df$language == 1 && df$test == 2])
+shapiro.test(df$correct[df$language == 1 & df$test == 1])
+shapiro.test(df$correct[df$language == 1 & df$test == 2])
 # 1.b. If both p values are >= .05, proceed with t.test. Otherwise, use wilcox.test.
 t.test(correct ~ test, df, subset=(df$language == 1))
 # If p >= .05, no difference between Test 1 and Test 2 data in Language 1, as expected.
 # 1.c. Now, test for distributions of Test 1 and Test 2 data in Language 2 for normality.
-shapiro.test(df$correct[df$language == 2 && df$test == 1])
-shapiro.test(df$correct[df$language == 2 && df$test == 2])
+shapiro.test(df$correct[df$language == 2 & df$test == 1])
+shapiro.test(df$correct[df$language == 2 & df$test == 2])
 # 1.d. If both p values are >= .05, proceed with t.test. Otherwise, use wilcox.test.
 t.test(correct ~ test, df, subset=(df$language == 2))
 # If p >= .05, no difference between Test 1 and Test 2 data in Language 2, as expected.
-
 # 2. Did people perform better than chance on Language 1?
+
 # 2.a. First, test distribution of Language 1 data for normality.
 shapiro.test(df$correct[df$language == 1])
 # 2.b. If p >= .05, proceed with t.test. Otherwise, use wilcox.test. 
@@ -43,6 +42,7 @@ t.test(df$correct[df$language == 1], mu=18)
 # If p < .05, people performed better than chance
 
 # 3. Did people perform better than chance on Language 2?
+
 # 3.a. First, test distribution of Language 2 data for normality.
 shapiro.test(df$correct[df$language == 2])
 # 3.b. If p >= .05, proceed with t.test. Otherwise, use wilcox.test. 
