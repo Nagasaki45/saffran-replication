@@ -28,7 +28,7 @@ cat("\n1.b. If both p values are >= .05, proceed with t.test. Otherwise, use wil
 t.test(correct ~ test, df, subset=(df$language == 1))
 cat("\nIf p >= .05, no difference between Test 1 and Test 2 data in Language 1, as expected.\n")
 cat("\n1.c. Now, test for distributions of Test 1 and Test 2 data in Language 2 for normality.\n")
-shapiro.test(df$correct[df$language == 2 & df$test == 1])
+shapiro.test(df$correct[df$language == 2 & df$test == 1])  # FIXME this one ended significant!
 shapiro.test(df$correct[df$language == 2 & df$test == 2])
 cat("\n1.d. If both p values are >= .05, proceed with t.test. Otherwise, use wilcox.test.\n")
 t.test(correct ~ test, df, subset=(df$language == 2))
