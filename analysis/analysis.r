@@ -56,9 +56,7 @@ cat("\nIf p < .05, people performed better than chance\n")
 
 cat("\n6. Are the results similar for Language 1 and Language 2?\n")
 
-cat("\n6.a. First, test for distributions of Language 1 and Language 2 data for normality.\n")
-shapiro.test(df$correct[df$language == 1])
-shapiro.test(df$correct[df$language == 2])
+cat("\n6.a. No need to check Language 1 and Language 2 data for normality, already done in 2.a and 3.a.\n")
 cat("\n6.b. If both p values are >= .05, proceed with t.test. Otherwise, use wilcox.test.\n")
 t.test(correct ~ language, df)
 cat("\nIf p >= .05, no difference between Language 1 and Language 2 data, as expected.\n")
