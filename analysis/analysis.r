@@ -76,7 +76,11 @@ cat("\nIf p >= .05, no difference between Language 1 and Language 2 data, as exp
 
 # 8. TO DO - Logistic regression
 
-# 9. TO DO - Scatter plot for transitional probability vs. average score for each word
+# 9. Scatter plot for transitional probability vs. average score for each word
+plot(words$transitional.probability, words$correct[,c('score')],
+     main="Individual words",
+     xlab="Average transitional probability", ylab="Number of correct answers",
+     xlim=c(0, 1), ylim=c(0, 6))
 
 cat("\n10. How do results compare with Saffran's linguistics study?\n")
 cat("\n10.a. First, test distribution of overall scores for normality.\n")
