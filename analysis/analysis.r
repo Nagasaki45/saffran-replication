@@ -50,30 +50,19 @@ t.test(df$correct[df$language == 2], mu=18)
 cat("\nIf p < .05, people performed better than chance\n")
 
 cat("\n4. Are scores on individual words better than chance?\n")
-words <- unique(df2$word)
-results <- matrix(NA, nc = 6, nr = length(words))
-rownames(results) <- words
-colnames(results) <- c("language", "transitional probability", "score", "shapiro p-value", "wilcoxon/t-test p-value", "better than chance")
-for (i in words) {
-  results[i, 1] <- mean(df2$language[df2$word==i])
-  results[i, 2] <- mean(df2$transitional_probability[df2$word==i])
-  results[i, 3] <- mean(df2$correct[df2$word==i])
-  n <- shapiro.test(df2$correct[df2$word==i])$p.value
-  results[i, 4] <- n
-  if (n >= .05) {
-    p <- t.test(df2$correct[df2$word==i], mu=3)$p.value
-    results[i, 5] <- p
-  }
-  else {
-    p <- wilcox.test(jitter(df2$correct[df2$word==i]), mu=3)$p.value
-    results[i, 5] <- p
-  }
-  if (p < .05) results[i, 6] <- "yes"
-  else results[i, 6] <- "no"
-}
-results
-cat("\nNote 1: In original study, all scores except ADB were better than chance\n")
-cat("\nNote 2: I used the mean for the first two columns, because I couldn't figure out another way\n")
+words <- aggregate(
+  df2$correct,
+  list(word=df2$word, transitional.probability=df2$transitional_probability, language=df2$language),
+  FUN=function(x) (c(shapiro=shapiro.test(x)$p.value,
+                     t.test=t.test(x, mu=3)$p.value,
+                     wilcox=wilcox.test(jitter(x), mu=3)$p.value,
+                     score=mean(x)))
+)
+names(words)[names(words)=="x"] <- "correct"
+words$better.than.chance <- apply(words[,c('correct')], 1, function(x) (if (x['shapiro'] > 0.05) x['t.test'] < 0.05 else x['wilcox'] < 0.05))
+words
+
+cat("\nNote: In original study, all scores except ADB were better than chance\n")
 
 cat("\n5. Are the results similar for Language 1 and Language 2?\n")
 cat("\n5.a. No need to check Language 1 and Language 2 data for normality, already done in 2.a and 3.a.\n")
