@@ -29,7 +29,7 @@ Analysis
 - Did people perform better than chance on both languages? |done|
 - Are scores on individual words better than chance? |half|
 - Are the results similar for Language 1 and Language 2? |done|
-- Are the results agree with Saffran's linguistics study? |done|
+- Do the results agree with Saffran's linguistics study? |done|
 
 .. class:: legend
 
@@ -46,7 +46,6 @@ Not yet ready
 =============
 
 - ANOVA for words with high vs. low transitional probabilities for each language.
-- **Extra:** Power analysis.
 - **Extra:** Analysis with models / Bayesian methods.
 - **Extra:** Fancy plots.
 
