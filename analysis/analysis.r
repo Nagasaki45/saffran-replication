@@ -86,11 +86,11 @@ cat("\nWe can have a look at an histogram to get a better idea\n")
 hist(df2$correct)
 cat("\nLooks good enough for an ANOVA\n")
 cat("\n7.b. Repeated measures ANOVA for Language 1\n")
-aov1 <- aov(correct ~ high.vs.low + Error(participant/high.vs.low), df2, subset=(words$language == 1))
-summary(aov1)
+anova1 <- aov(correct ~ high.vs.low + Error(participant/high.vs.low), df2, subset=(words$language == 1))
+summary(anova1)
 cat("\n7.c. Repeated measures ANOVA for Language 2\n")
-aov2 <- aov(correct ~ high.vs.low + Error(participant/high.vs.low), df2, subset=(words$language == 2))
-summary(aov2)
+anova2 <- aov(correct ~ high.vs.low + Error(participant/high.vs.low), df2, subset=(words$language == 2))
+summary(anova2)
 cat("\nIf p < .05, people were better on words with higher transitional probabilities\n")
 
 cat("\n8. But really, an ANOVA shouldn't have been used. A paired t-test is better\n")
@@ -100,7 +100,14 @@ cat("\n8.b. Language 2\n")
 t.test(correct ~ high.vs.low, df2, paired = TRUE, subset=(words$language == 2))
 cat("\nIf p < .05, people were better on words with higher transitional probabilities\n")
 
-# 9. TO DO - Logistic regression
+cat("\n9.Or even better, a logistic regression on all the data rather than splitting by language\n")
+library(lme4)
+library(lmerTest)
+logreg <- lmer(correct ~ correct_word_trans_prob + (1|participant), raw.data)
+summary(logreg)
+anova(logreg)
+cat("\nIf p < .05, there is an effect of transitional probabilities on scores\n")
+
 
 cat("\n10. Scatter plot for transitional probability vs. average score for each word\n")
 plot(words$transitional.probability, words$correct[,c('score')],
