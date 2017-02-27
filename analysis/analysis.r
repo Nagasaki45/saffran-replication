@@ -75,9 +75,30 @@ cat("\n6.b. If both p values are >= .05, proceed with t.test. Otherwise, use wil
 t.test(correct ~ language, df)
 cat("\nIf p >= .05, no difference between Language 1 and Language 2 data, as expected.\n")
 
-# 7. TO DO - ANOVA for words with high vs. low transitional probabilities in Language 1.
+cat("\n7. ANOVA for words with high vs. low transitional probabilities\n")
+cat("\n7.a. First, add a column to the data frame to separate high vs. low probability\n")
+df2$high.vs.low <- apply(df2, 1, function(x) (if (x['transitional_probability'] < 0.7) x = 0 else x = 1))
+df2
+cat("\n7.b. Then, check for normality\n")
+shapiro.test(df2$correct)
+cat("\n7.c. Since it's interval data 0-6 range, it's unlikely to be normally distributed\n")
+cat("\nWe can have a look at an histogram to get a better idea\n")
+hist(df2$correct)
+cat("\nLooks good enough for an ANOVA\n")
+cat("\n7.b. Repeated measures ANOVA for Language 1\n")
+aov1 <- aov(correct ~ high.vs.low + Error(participant/high.vs.low), df2, subset=(words$language == 1))
+summary(aov1)
+cat("\n7.c. Repeated measures ANOVA for Language 2\n")
+aov2 <- aov(correct ~ high.vs.low + Error(participant/high.vs.low), df2, subset=(words$language == 2))
+summary(aov2)
+cat("\nIf p < .05, people were better on words with higher transitional probabilities\n")
 
-# 8. TO DO - ANOVA for words with high vs. low transitional probabilities in Language 2.
+cat("\n8. But really, an ANOVA shouldn't have been used. A paired t-test is better\n")
+cat("\n8.a. Language 1\n")
+t.test(correct ~ high.vs.low, df2, paired = TRUE, subset=(words$language == 1))
+cat("\n8.b. Language 2\n")
+t.test(correct ~ high.vs.low, df2, paired = TRUE, subset=(words$language == 2))
+cat("\nIf p < .05, people were better on words with higher transitional probabilities\n")
 
 # 9. TO DO - Logistic regression
 
