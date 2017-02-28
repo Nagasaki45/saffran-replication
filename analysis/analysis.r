@@ -102,6 +102,7 @@ cat("\nIf p < .05, people were better on words with higher transitional probabil
 
 cat("\n9.Or even better, a logistic regression on all the data rather than splitting by language\n")
 library(lme4)
+library(lmerTest)
 logreg <- lmer(correct ~ correct_word_trans_prob + (1|participant), raw.data)
 summary(logreg)
 anova(logreg)
