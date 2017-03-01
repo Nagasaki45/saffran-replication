@@ -16,8 +16,8 @@ Remi, Rishi, Emily, Luna, and Tom
 Last 2 weeks
 ============
 
-- Tested 9 more participants, 20 in total.
-- Only 4 more to go!
+- Tested 10 more participants, 21 in total.
+- Only 3 more to go!
 - Prepared (most of) the analysis code.
 
 ----
