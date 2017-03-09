@@ -37,30 +37,16 @@ stripchart(df$correct, method = "stack", vertical = TRUE,
 abline(h=18, lty= 2)
 
 cat("\n2. Are the results similar for Test 1 and Test 2, for each language?\n")
-cat("\n2.a. First, test for distributions of Test 1 and Test 2 data in Language 1 for normality.\n")
-shapiro.test(df$correct[df$language == 1 & df$test == 1])
-shapiro.test(df$correct[df$language == 1 & df$test == 2])
-cat("\n2.b. If both p values are >= .05, proceed with t.test. Otherwise, use wilcox.test.\n")
 t.test(correct ~ test, df, subset=(df$language == 1))
 cat("\nIf p >= .05, no difference between Test 1 and Test 2 data in Language 1, as expected.\n")
-cat("\n2.c. Now, test for distributions of Test 1 and Test 2 data in Language 2 for normality.\n")
-shapiro.test(df$correct[df$language == 2 & df$test == 1])  # FIXME this one ended significant!
-shapiro.test(df$correct[df$language == 2 & df$test == 2])
-cat("\n2.d. If both p values are >= .05, proceed with t.test. Otherwise, use wilcox.test.\n")
 t.test(correct ~ test, df, subset=(df$language == 2))
 cat("\nIf p >= .05, no difference between Test 1 and Test 2 data in Language 2, as expected.\n")
 
 cat("\n3. Did people perform better than chance on Language 1?\n")
-cat("\n3.a. First, test distribution of Language 1 data for normality.\n")
-shapiro.test(df$correct[df$language == 1])
-cat("\n3.b. If p >= .05, proceed with t.test. Otherwise, use wilcox.test. \n")
 t.test(df$correct[df$language == 1], mu=18)
 cat("\nIf p < .05, people performed better than chance\n")
 
 cat("\n4. Did people perform better than chance on Language 2?\n")
-cat("\n4.a. First, test distribution of Language 2 data for normality.\n")
-shapiro.test(df$correct[df$language == 2])
-cat("\n4.b. If p >= .05, proceed with t.test. Otherwise, use wilcox.test. \n")
 t.test(df$correct[df$language == 2], mu=18)
 cat("\nIf p < .05, people performed better than chance\n")
 
