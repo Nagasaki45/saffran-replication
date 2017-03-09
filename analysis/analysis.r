@@ -108,3 +108,16 @@ shapiro.test(df$correct)
 cat("\n10.b. If p >= .05, proceed with t.test. Otherwise, use wilcox.test. \n")
 t.test(df$correct, mu=27.2)
 cat("\nIf p >= .05, results are similar to linguistics study.\n")
+
+cat("\n11. Decrease in performance during the test. See plots.\n")
+trials.correctness <- aggregate(
+  correct ~ trial,
+  raw.data,
+  FUN=mean
+)
+
+plot(trials.correctness$trial, trials.correctness$correct,
+     main="Trial number effect on correct answers",
+     xlab="Trial number", ylab="Average correctness probability",
+     ylim=c(0, 1))
+abline(lm(trials.correctness$correct ~ trials.correctness$trial), lty = 2)
