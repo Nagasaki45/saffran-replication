@@ -3,6 +3,15 @@ DATA_FILE = 'annotated_exp_data.csv'
 # Load the data from file
 raw.data <- read.csv(DATA_FILE)
 
+cat("\nNumber of participants for each language and test combination\n")
+print (
+  aggregate(
+    participant ~ language + test,
+    raw.data,
+    FUN=function(x) (length(unique(x)))
+  )
+)
+
 cat("\nGroup by participant with calculated score\n")
 df <- aggregate(
   raw.data$correct, 
