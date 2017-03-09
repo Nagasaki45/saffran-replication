@@ -95,25 +95,16 @@ cat("\n8.b. Language 2\n")
 t.test(correct ~ high.vs.low, df2, paired = TRUE, subset=(words$language == 2))
 cat("\nIf p < .05, people were better on words with higher transitional probabilities\n")
 
-cat("\n9.Or even better, a logistic regression on all the data rather than splitting by language\n")
-library(lme4)
-library(lmerTest)
-logreg <- lmer(correct ~ correct_word_trans_prob + (1|participant), raw.data)
-summary(logreg)
-anova(logreg)
-cat("\nIf p < .05, there is an effect of transitional probabilities on scores\n")
-
-
-cat("\n10. Scatter plot for transitional probability vs. average score for each word\n")
+cat("\n9. Scatter plot for transitional probability vs. average score for each word\n")
 plot(words$transitional.probability, words$correct[,c('score')],
      main="Individual words",
      xlab="Average transitional probability", ylab="Number of correct answers",
      xlim=c(0, 1), ylim=c(0, 6))
 abline(lm(words$correct[,c('score')] ~ words$transitional.probability), lty = 2)
 
-cat("\n11. How do results compare with Saffran's linguistics study?\n")
-cat("\n11.a. First, test distribution of overall scores for normality.\n")
+cat("\n10. How do results compare with Saffran's linguistics study?\n")
+cat("\n10.a. First, test distribution of overall scores for normality.\n")
 shapiro.test(df$correct)
-cat("\n11.b. If p >= .05, proceed with t.test. Otherwise, use wilcox.test. \n")
+cat("\n10.b. If p >= .05, proceed with t.test. Otherwise, use wilcox.test. \n")
 t.test(df$correct, mu=27.2)
 cat("\nIf p >= .05, results are similar to linguistics study.\n")
