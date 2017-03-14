@@ -54,19 +54,14 @@ cat("\n5. Are scores on individual words better than chance?\n")
 words <- aggregate(
   df2$correct,
   list(word=df2$word, transitional.probability=df2$transitional_probability, language=df2$language),
-  FUN=function(x) (c(shapiro=shapiro.test(x)$p.value,
-                     t.test=t.test(x, mu=3)$p.value,
-                     wilcox=wilcox.test(jitter(x), mu=3)$p.value,
-                     score=mean(x)))
+  FUN=function(x) (c(t.test=t.test(x, mu=3)$p.value, score=mean(x)))
 )
 names(words)[names(words)=="x"] <- "correct"
-words$better.than.chance <- apply(words[,c('correct')], 1, function(x) (if (x['shapiro'] > 0.05) x['t.test'] < 0.05 else x['wilcox'] < 0.05))
+words$better.than.chance <- apply(words[,c('correct')], 1, function(x) (x['t.test'] < 0.05))
 words
 cat("\nNote: In original study, all scores except ADB were better than chance\n")
 
 cat("\n6. Are the results similar for Language 1 and Language 2?\n")
-cat("\n6.a. No need to check Language 1 and Language 2 data for normality, already done in 2.a and 3.a.\n")
-cat("\n6.b. If both p values are >= .05, proceed with t.test. Otherwise, use wilcox.test.\n")
 t.test(correct ~ language, df)
 cat("\nIf p >= .05, no difference between Language 1 and Language 2 data, as expected.\n")
 
@@ -74,12 +69,6 @@ cat("\n7. ANOVA for words with high vs. low transitional probabilities\n")
 cat("\n7.a. First, add a column to the data frame to separate high vs. low probability\n")
 df2$high.vs.low <- apply(df2, 1, function(x) (if (x['transitional_probability'] < 0.7) x = 0 else x = 1))
 df2
-cat("\n7.b. Then, check for normality\n")
-shapiro.test(df2$correct)
-cat("\n7.c. Since it's interval data 0-6 range, it's unlikely to be normally distributed\n")
-cat("\nWe can have a look at an histogram to get a better idea\n")
-barplot(table(df2$correct), main="Number of correct answers per word")
-cat("\nLooks good enough for an ANOVA\n")
 cat("\n7.b. Repeated measures ANOVA for Language 1\n")
 anova1 <- aov(correct ~ high.vs.low + Error(participant/high.vs.low), df2, subset=(words$language == 1))
 summary(anova1)
@@ -103,9 +92,6 @@ plot(words$transitional.probability, words$correct[,c('score')],
 abline(lm(words$correct[,c('score')] ~ words$transitional.probability), lty = 2)
 
 cat("\n10. How do results compare with Saffran's linguistics study?\n")
-cat("\n10.a. First, test distribution of overall scores for normality.\n")
-shapiro.test(df$correct)
-cat("\n10.b. If p >= .05, proceed with t.test. Otherwise, use wilcox.test. \n")
 t.test(df$correct, mu=27.2)
 cat("\nIf p >= .05, results are similar to linguistics study.\n")
 
