@@ -2,6 +2,20 @@ DATA_FILE = 'annotated_exp_data.csv'
 
 # Load the data from file
 raw.data <- read.csv(DATA_FILE)
+participants <- read.csv("participants.csv")
+
+cat("\nParticipants age and gender\n")
+cat("\nMean age\n")
+print(
+  mean(participants$age)
+)
+print (
+  aggregate(
+    age ~ gender,
+    participants,
+    FUN=function(x) (c(mean=mean(x), count=length(x)))
+  )
+)
 
 cat("\nNumber of participants for each language and test combination\n")
 print (
