@@ -5,10 +5,7 @@ raw.data <- read.csv(DATA_FILE)
 participants <- read.csv("participants.csv")
 
 cat("\nParticipants age and gender\n")
-cat("\nMean age\n")
-print(
-  mean(participants$age)
-)
+cat(sprintf("\nMean age: %f\tStd: %f\n", mean(participants$age), sqrt(var(participants$age))))
 print (
   aggregate(
     age ~ gender,
