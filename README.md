@@ -16,3 +16,5 @@ In this repo you will find:
 - [Code](https://github.com/Nagasaki45/saffran-replication/tree/master/stimuli_generation) to generate stimuli for our replication study.
 - [Code](https://github.com/Nagasaki45/saffran-replication/tree/master/analysis) to analyze the experiment results.
 - [Two presentations](https://github.com/Nagasaki45/saffran-replication/tree/master/presentations) showing intermediate steps through the replications study.
+
+For more details see our [final presentation](https://docs.google.com/presentation/d/1qNE3Ch9p1atsrZdce9BSwXARJPY8c0UdqffUpfi1Uz0/edit?usp=sharing).
