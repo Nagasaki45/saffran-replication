@@ -5,12 +5,7 @@ Replication study
 >
 > &mdash; <cite>Saffran, Johnson, Aslin, & Newport. 1999</cite>
 
-**Group members**:
-- Emily - @emidude
-- Luna - @lunaht
-- Remi - @remidefleurian
-- Rishi - @rishi-s
-- Tom - @nagasaki45
+**Group members**: [Emily](https://github.com/emidude), [Luna](https://github.com/lunaht), [Remi](https://github.com/remidefleurian), [Rishi](https://github.com/rishi-s), [Tom](https://github.com/nagasaki45).
 
 # What
 
